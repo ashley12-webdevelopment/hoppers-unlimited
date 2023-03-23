@@ -1,0 +1,23 @@
+.footer {
+  width: 100%;
+  color:#fff;
+  background-color: #000;
+}
+
+
+.footer-center {
+  /* border:1px solid black; */
+  width: 90vw;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  text-align:center;
+  height:6rem;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+}
+
+.footer-center span{
+  margin-left:0.25rem;
+}

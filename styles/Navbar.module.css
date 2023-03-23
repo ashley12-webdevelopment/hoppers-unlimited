@@ -1,0 +1,16 @@
+.navbar{
+    /* background-color: yellow; */
+    width:100%;
+    box-shadow: 0 5px 15px rgba(243,
+        107,
+        33,0.2);
+}
+
+
+.nav-center{
+    /* border:1px solid black; */
+    width:90vw;
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:0.5rem 0;
+}
