@@ -1,0 +1,26 @@
+.loading {
+    border: 5px solid #ccc;
+    /* width: 60px;
+    height: 60px; */
+    border-radius: 50%;
+    border-color: var(--primary-400) var(--primary-300);
+    /* border-left-color: var(--primary-100); */
+    animation: spin 0.95s ease infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    /* from{
+        transform: rotate(0turn);
+    }
+    to{
+        transform: rotate(1turn);
+    } */
+}

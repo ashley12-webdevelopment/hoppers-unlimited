@@ -5,6 +5,8 @@ import FormRowTextArea from "./FormRowTextArea";
 import {useForm} from "react-hook-form";
 import {useState,useEffect} from 'react';
 
+import Loader from "../utils/Loader";
+
 const initialValues = {contactPerson:"",kmsToDestination:undefined}
 
 
@@ -13,6 +15,8 @@ const BookingForm = () => {
   const {register,handleSubmit,formState:{errors},control,trigger,setValue} = useForm({defaultValues:initialValues});
 
   const [kmsToDestination,setKmsToDestination] = useState(undefined);
+  const [formSubmitting,setFormSubmitting] = useState(false);
+
 
   const onFormSubmit = (data)=>{
     console.log(data);
@@ -131,10 +135,10 @@ const BookingForm = () => {
             </div>
             
           
-          <button type="submit" className={`btn ${styles["btn-event"]}`}>submit Booking</button>
+          <button type="submit" disabled={formSubmitting} className={`btn ${styles["btn-event"]}`}>{formSubmitting?<><Loader width={`1.25rem`} height={`1.25rem`}/><p>submitting ....</p></>:<p>submit booking</p>}</button>
           {/* testing purposes */}
-          <button type="button" onClick={()=>{setKmsToDestination(50);setValue("kmsToDestination",50);}}>Travel far</button>
-          <button type="button" onClick={()=>{setKmsToDestination(20);setValue("kmsToDestination",20);}}>Travel local</button>
+          {/* <button type="button" onClick={()=>{setKmsToDestination(50);setValue("kmsToDestination",50);}}>Travel far</button>
+          <button type="button" onClick={()=>{setKmsToDestination(20);setValue("kmsToDestination",20);}}>Travel local</button> */}
         </form>
         
         

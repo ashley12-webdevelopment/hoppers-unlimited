@@ -39,6 +39,17 @@
   font-weight: 600;
 }
 
+.btn-event {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-event p {
+  margin: 0;
+}
+
 @media screen and (min-width:992px) {
   .event-form {
     /* grid-template-columns: 1fr 1fr; */
@@ -50,6 +61,7 @@
     grid-column-end: 3; */
   }
 
+  
   .full-width-field{
     grid-column-start: 1;
     grid-column-end: 3;
