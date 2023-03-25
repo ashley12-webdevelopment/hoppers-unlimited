@@ -39,5 +39,10 @@ export default {
       type: 'number',
       validation: (Rule) => Rule.required().integer().positive(),
     },
+    {
+      name: 'additionalComments',
+      title: 'Additional Comments',
+      type: 'text',
+    },
   ],
 }

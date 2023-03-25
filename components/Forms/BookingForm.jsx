@@ -3,23 +3,47 @@ import FormRow from "./FormRow";
 import FormRowDatePicker from "./FormRowDatePicker";
 import FormRowTextArea from "./FormRowTextArea";
 import {useForm} from "react-hook-form";
+import axios from "axios";
+
 import {useState,useEffect} from 'react';
 
 import Loader from "../utils/Loader";
+import Modal from "../utils/Modal";
 
-const initialValues = {contactPerson:"",kmsToDestination:undefined}
+const initialValues = {contactName:"",contactNumber:"0438912323",contactEmail:"ashleydesilva2002@gmail.com",headCount:"26",eventAddress:"12 test street",kmsToDestination:undefined}
 
 
 
 const BookingForm = () => {
-  const {register,handleSubmit,formState:{errors},control,trigger,setValue} = useForm({defaultValues:initialValues});
+  const {register,handleSubmit,formState:{errors},control,trigger,setValue,reset} = useForm({defaultValues:initialValues});
 
   const [kmsToDestination,setKmsToDestination] = useState(undefined);
+
   const [formSubmitting,setFormSubmitting] = useState(false);
+  // const [submissionCompleteMessage,setSubmissionCompleteMessage] = useState("");
+  const [bookingProcessComplete,setBookingProcessComplete] = useState(false);
+  const [modalMessage,setModalMessage] = useState({})
 
 
-  const onFormSubmit = (data)=>{
-    console.log(data);
+
+  const onFormSubmit = async (formData)=>{
+    console.log(formData);
+    setFormSubmitting(true);
+    try{
+      const data = await axios.post("/api/booking",formData);
+      console.log(`FORM SUUCESSFULLY SUBMITTED`,data);
+      // setSubmissionCompleteMessage(`booking successfully sent`);
+      setModalMessage({type:"success",title:"booking successfully sent",content:"We will call you soon"});
+      reset();
+    }catch(error){
+      console.log(`error:`,error.message);
+      // setSubmissionCompleteMessage(`Error sending message.Please contact site administration.${err.message}`);
+            setModalMessage({type:"error",title:"booking error",content:`Error sending message.Please contact site administration.${error.message}`})
+
+    }
+
+    setFormSubmitting(false);
+    setBookingProcessComplete(true);
 
   }
 
@@ -53,6 +77,8 @@ const BookingForm = () => {
 
   return (
     <>
+    {/* <Modal showModal={bookingProcessComplete} closeModal={setBookingProcessComplete} msg={{type:"success",title:"title",content:"content"}}/> */}
+    <Modal showModal={bookingProcessComplete} closeModal={setBookingProcessComplete} msg={modalMessage}/>
     <section className={styles.section}>
         <div className={styles["section-center"]}>
             <h1 className={styles.title}>Hoppers Unlimited</h1>
@@ -67,7 +93,7 @@ const BookingForm = () => {
             <FormRow
               type="text"
               labelText="contact person"
-              register={register("contactPerson",{required:{value:true,message:"contact name required!!"}})}
+              register={register("contactName",{required:{value:true,message:"contact name required!!"}})}
               errors={errors}
               required={true}
             />
