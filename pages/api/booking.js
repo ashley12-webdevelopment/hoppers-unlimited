@@ -6,17 +6,44 @@ export default async function handler(req, res) {
   const dataset = config.dataset;
   const tokenWithWriteAccess = process.env.SANITY_TOKEN;
 
+  const {
+    contactName,
+    contactNumber,
+    contactEmail,
+    eventDate,
+    eventAddress,
+    headCount,
+    additionalComments,
+  } = req.body;
+
+  if (req.method !== "POST") {
+    return res.status(404).json({ message: "invalid method type" });
+  }
+
+  if (
+    !contactName ||
+    !contactNumber ||
+    !contactEmail ||
+    !eventDate ||
+    !eventAddress ||
+    !headCount
+  ) {
+    return res
+      .status(400)
+      .json({ message: "Please provide all necessary fields" });
+  }
+
   const createMutations = [
     {
       create: {
         _type: "booking",
-        contactName: req.body.contactName,
-        contactNumber: req.body.contactNumber,
-        contactEmail: req.body.contactEmail,
-        eventDate: req.body.eventDate,
-        eventAddress: req.body.eventAddress,
+        contactName,
+        contactNumber,
+        contactEmail,
+        eventDate,
+        eventAddress,
         headCount: parseInt(req.body.headCount),
-        additionalComments: req.body.additionalComments,
+        additionalComments,
       },
     },
   ];
@@ -34,9 +61,11 @@ export default async function handler(req, res) {
     );
 
     const bookingId = data.results[0].id;
-    res.status(200).json({ _id: bookingId, message: "submission successful" });
+    res
+      .status(201)
+      .json({ _id: bookingId, message: "booking submitted successful" });
   } catch (err) {
     console.log(err);
-    res.status(404).json({ err_message: "submission error" });
+    res.status(500).json({ err_message: "booking submit error", err });
   }
 }
