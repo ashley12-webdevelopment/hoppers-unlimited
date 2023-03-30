@@ -1,5 +1,6 @@
 import styles from "../../styles/Booking.module.css";
 import FormRow from "./FormRow";
+import FormRowAddress from "./FormRowAddress";
 import FormRowDatePicker from "./FormRowDatePicker";
 import FormRowTextArea from "./FormRowTextArea";
 import {useForm} from "react-hook-form";
@@ -10,17 +11,19 @@ import {useState,useEffect} from 'react';
 import Loader from "../utils/Loader";
 import Modal from "../utils/Modal";
 
-const initialValues = {contactName:"",contactNumber:"0438912323",contactEmail:"ashleydesilva2002@gmail.com",headCount:"26",eventAddress:"12 test street",kmsToDestination:undefined}
+const initialValues = {contactName:"Ashley",contactNumber:"0438912323",contactEmail:"ashleydesilva2002@gmail.com",headCount:25,eventAddress:"",eventCoordinates:undefined,kmsToDestination:undefined}
 
 
 
 const BookingForm = () => {
-  const {register,handleSubmit,formState:{errors},control,trigger,setValue,reset} = useForm({defaultValues:initialValues});
+  const {register,handleSubmit,formState:{errors},control,trigger,setValue,getValues,reset} = useForm({defaultValues:initialValues});
 
+
+  //some useState values (tried to take these off but could not)
+  const [address,setAddress] = useState("");
   const [kmsToDestination,setKmsToDestination] = useState(undefined);
 
   const [formSubmitting,setFormSubmitting] = useState(false);
-  // const [submissionCompleteMessage,setSubmissionCompleteMessage] = useState("");
   const [bookingProcessComplete,setBookingProcessComplete] = useState(false);
   const [modalMessage,setModalMessage] = useState({})
 
@@ -32,13 +35,12 @@ const BookingForm = () => {
     try{
       const data = await axios.post("/api/booking",formData);
       console.log(`FORM SUUCESSFULLY SUBMITTED`,data);
-      // setSubmissionCompleteMessage(`booking successfully sent`);
       setModalMessage({type:"success",title:"booking successfully sent",content:"We will call you soon"});
       reset();
+      setAddress("");
     }catch(error){
       console.log(`error:`,error.message);
-      // setSubmissionCompleteMessage(`Error sending message.Please contact site administration.${err.message}`);
-            setModalMessage({type:"error",title:"booking error",content:`Error sending message.Please contact site administration.${error.message}`})
+      setModalMessage({type:"error",title:"booking error",content:`Error sending message.Please contact site administration.${error.message}`})
 
     }
 
@@ -86,7 +88,7 @@ const BookingForm = () => {
             {/* <h3 className={styles["subheading-3"]}>for all bookings please fill and submit the form below. We will be in touch with you soon</h3> */}
             <p className={styles["subheading-3"]}>Bookings for any party, event and functions please fill and submit the form below. We will be in touch with you soon</p>
         
-        <form className={`form ${styles["event-form"]}`} onSubmit={handleSubmit(onFormSubmit)} noValidate>
+        <form className={`form ${styles["event-form"]}`} onSubmit={handleSubmit(onFormSubmit)} autoComplete="off" noValidate>
           {/* SECTION 1 - Contact */}
           <div className={`${styles["group-section"]} ${styles["group-contact-section"]}`}>
 
@@ -139,18 +141,26 @@ const BookingForm = () => {
                       additionalProperties={{min:25}}
                       labelText="head count"
                       register={register("headCount",{required:{value:true,message:"head count required!!"},min:{value:kmsToDestination>=50?35:25,message:`minimum head count is ${kmsToDestination>=50?"35":"25"}`}})}
+                      // register={register("headCount",{required:{value:true,message:"head count required!!"},min:{value:25,message:`minimum head count is 25`},validate:{longDistant:(value)=>(getValues().kmsToDestination<50 && (value>=25 && value<35)) || "minimumhead count is 35"}})}
                       errors={errors}
                       required={true}
                       placeholder="number of people to serve"
                     />
 
-                    <FormRow
+                    <FormRowAddress
                       type="text"
-                      labelText="event address"
-                      register={register("eventAddress",{required:{value:true,message:"event address required!!"}})}
+                      labelText="event address (Google)"
+                      register={register("eventAddress",{required:{value:true,message:"event address required!!"},validate:{coordinatesRequired:()=>(getValues().eventCoordinates!=="" && getValues().eventCoordinates!=undefined) || "valid address required!! Please select address from dropdown suggestions"}})}
+                      address={address}
+                      setAddress={setAddress}
                       errors={errors}
                       required={true}
                       customCss={styles["full-width-field"]}
+                      placeholder="Enter event address"
+                      setValue={setValue}
+                      trigger={trigger}
+                      setKmsToDestination={setKmsToDestination}
+                      kmsToDestination={kmsToDestination}//for display purpses
                     />
 
                      <FormRowTextArea

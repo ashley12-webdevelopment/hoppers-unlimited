@@ -14,6 +14,8 @@ export default async function handler(req, res) {
     eventAddress,
     headCount,
     additionalComments,
+    eventCoordinates,
+    kmsToDestination,
   } = req.body;
 
   if (req.method !== "POST") {
@@ -26,7 +28,9 @@ export default async function handler(req, res) {
     !contactEmail ||
     !eventDate ||
     !eventAddress ||
-    !headCount
+    !headCount ||
+    !eventCoordinates ||
+    !kmsToDestination
   ) {
     return res
       .status(400)
@@ -44,6 +48,8 @@ export default async function handler(req, res) {
         eventAddress,
         headCount: parseInt(req.body.headCount),
         additionalComments,
+        eventCoordinates,
+        kmsToDestination: parseFloat(kmsToDestination),
       },
     },
   ];

@@ -1,0 +1,34 @@
+
+.parent-container{
+    position:relative;
+}
+.address-input{
+    /* border-bottom-left-radius: 0; */
+    /* border-bottom-right-radius: 0; */
+}
+
+.suggestions-container{
+    background: var(--primary-50);
+    border-top:none;
+    position:absolute;
+    width:100%;
+}
+
+.loading{
+    padding: 0.75rem 1.5rem;
+}
+
+.suggestion-item{
+    padding:0.75rem 1.5rem;
+    cursor:pointer;
+    border-bottom: 1px solid var(--primary-200);
+    display:flex;
+    /* justify-content:center; */
+    align-items:center;
+    gap:0.75rem;
+}
+.suggestion-item--active{
+    background:var(--primary-500);
+    color:var(--grey-900);
+    /* font-weight:500; */
+}
