@@ -101,9 +101,10 @@ const BookingForm = () => {
               required={true}
             />
             <FormRow
-              type="number"
+              type="string"
               labelText="contact number"
-              register={register("contactNumber",{required:{value:true,message:"contact number required!!"}})}
+              // register={register("contactNumber",{required:{value:true,message:"contact number required!!"},minLength:{value:8,message:"valid phone number required!!"},maxLength:{value:10,message:"valid phone number required!!"},pattern:{value:/^\d+$/,message:"valid phone number required!!"}})}
+              register={register("contactNumber",{required:{value:true,message:"contact number required!!"},pattern:{value:/^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$/,message:"valid phone number required!!"}})}
               errors={errors}
               required={true}
             />
