@@ -1,7 +1,8 @@
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
 import { useState,useEffect } from "react";
 import styles from "../../styles/FormRowAddress.module.css"
-import { BiLocationPlus } from "react-icons/bi";
+
+import GooglePlacesSuggestions from "./GooglePlacesSuggestions";
 
 const FormRowAddress = ({
   type,
@@ -121,9 +122,11 @@ const FormRowAddress = ({
                   {console.log(suggestions)}
                   {loading?<div className={styles["loading"]}>loading...</div>:null}
 
-                  {suggestions.map((suggestion,index)=>{
+                  <GooglePlacesSuggestions suggestions={suggestions} getSuggestionItemProps={getSuggestionItemProps} styles={styles} />
+
+                  {/* {suggestions.map((suggestion,index)=>{
                       return <div key={index} {...getSuggestionItemProps(suggestion)} className={`${styles["suggestion-item"]} ${suggestion.active?styles["suggestion-item--active"]:null}`}><BiLocationPlus/>{suggestion.description}</div>
-                  })}
+                  })} */}
                 </div>
           
               </div>

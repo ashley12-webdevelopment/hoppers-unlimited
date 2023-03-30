@@ -38,6 +38,7 @@ const BookingForm = () => {
       setModalMessage({type:"success",title:"booking successfully sent",content:"We will call you soon"});
       reset();
       setAddress("");
+      setKmsToDestination(undefined);
     }catch(error){
       console.log(`error:`,error.message);
       setModalMessage({type:"error",title:"booking error",content:`Error sending message.Please contact site administration.${error.message}`})
@@ -132,7 +133,7 @@ const BookingForm = () => {
                         labelText="event date and time"
                         required={true}
                         minDate={new Date()}
-                        rules={{required: { value: true, message: "event date and time required!!" }}}
+                        rules={{required: { value: true, message: "event date and time required!!" },validate:{isFutureDate:(value)=>value>new Date()||"Future date required!!"}}}
                         // selectedDate={values.eventDate}
                    />
 
@@ -140,7 +141,7 @@ const BookingForm = () => {
                       type="number"
                       additionalProperties={{min:25}}
                       labelText="head count"
-                      register={register("headCount",{required:{value:true,message:"head count required!!"},min:{value:kmsToDestination>=50?35:25,message:`minimum head count is ${kmsToDestination>=50?"35":"25"}`}})}
+                      register={register("headCount",{required:{value:true,message:"head count required!!"},pattern:{value:/^\d+$/,message:"whole number without decimal places required!!"},min:{value:kmsToDestination>=50?35:25,message:`minimum head count is ${kmsToDestination>=50?"35":"25"}`}})}
                       // register={register("headCount",{required:{value:true,message:"head count required!!"},min:{value:25,message:`minimum head count is 25`},validate:{longDistant:(value)=>(getValues().kmsToDestination<50 && (value>=25 && value<35)) || "minimumhead count is 35"}})}
                       errors={errors}
                       required={true}
