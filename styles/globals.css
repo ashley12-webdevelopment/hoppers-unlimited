@@ -280,3 +280,51 @@ button:disabled {
   font-size:var(--small-text);
   margin-left: 0.4rem;
 }
+
+
+
+/* styling for react-datepicker */
+
+.react-datepicker{
+  border:1px solid var(--primary-500) !important;
+}
+
+.react-datepicker__triangle::after{
+  border-bottom-color: var(--primary-300) !important;
+}
+
+.react-datepicker__header {
+  background-color: var(--primary-300) !important;
+  border-bottom: 1px solid var(--primary-600) !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color:var(--primary-800) !important;
+}
+
+
+.react-datepicker__time-container{
+  border-left:1px solid var(--primary-400) !important;
+  width:inherit !important;
+}
+
+/* .react-datepicker__day:hover{
+    background-color: var(--primary-50) !important;
+} */
+
+.react-datepicker__day--selected{
+  background-color:var(--primary-500) !important;
+}
+
+.react-datepicker__day--keyboard-selected{
+  background-color:var(--primary-50) !important;
+}
+
+
+/* .react-datepicker__time-list-item:hover{
+    background-color: var(--primary-50) !important;
+} */
+
+.react-datepicker__time-list-item--selected {
+  background-color: var(--primary-400) !important;
+}
