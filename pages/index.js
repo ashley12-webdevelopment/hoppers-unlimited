@@ -8,8 +8,13 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Hoppers Unlimited - Booking</title>
-        <meta name="description" content="Hoppers Unlimited Booking Form" />
+        <title>
+          Hoppers Unlimited - Booking || Melbourne || Hoppers Catering
+        </title>
+        <meta
+          name="description"
+          content="Hoppers Unlimited accepts online Bookings for Sri Lankan style Hoppers catering in Melbourne for any party, event or function. Please fill & submit our booking form and we will contact you soon"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Script

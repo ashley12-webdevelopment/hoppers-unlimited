@@ -13,6 +13,8 @@ const FormRowTextArea = ({
         <textarea
           className="form-textarea"
           {...register}
+          id={register.name}
+
         />
       </div>
     </>
