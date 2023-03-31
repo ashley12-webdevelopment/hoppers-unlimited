@@ -11,7 +11,7 @@ import {useState,useEffect} from 'react';
 import Loader from "../utils/Loader";
 import Modal from "../utils/Modal";
 
-const initialValues = {contactName:"Ashley",contactNumber:"0438912323",contactEmail:"ashleydesilva2002@gmail.com",headCount:25,eventAddress:"",eventCoordinates:undefined,kmsToDestination:undefined}
+const initialValues = {contactName:"",contactNumber:"",contactEmail:"",headCount:25,eventAddress:"",eventCoordinates:undefined,kmsToDestination:undefined}
 
 
 
