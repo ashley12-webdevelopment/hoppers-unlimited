@@ -114,9 +114,9 @@ const FormRowAddress = ({
           >
             {({getInputProps, suggestions, getSuggestionItemProps, loading})=>(
               <div className={styles["parent-container"]}>
-                <p>Lat: {coordinate.lat}</p>
+                {/* <p>Lat: {coordinate.lat}</p>
                 <p>Lon: {coordinate.lng}</p>
-                <p>Kms to destination: {kmsToDestination?kmsToDestination:"-"}</p>
+                <p>Kms to destination: {kmsToDestination?kmsToDestination:"-"}</p> */}
                 <input className={`form-input ${styles["address-input"]}`} {...getInputProps({placeholder})} autoComplete="none" />
                 <div className={styles["suggestions-container"]} >
                   {console.log(suggestions)}

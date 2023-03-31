@@ -151,7 +151,7 @@ const BookingForm = () => {
 
                     <FormRowAddress
                       type="text"
-                      labelText="event address (Google)"
+                      labelText="event address"
                       register={register("eventAddress",{required:{value:true,message:"event address required!!"},validate:{coordinatesRequired:()=>(getValues().eventCoordinates!=="" && getValues().eventCoordinates!=undefined) || "valid address required!! Please select address from dropdown suggestions"}})}
                       address={address}
                       setAddress={setAddress}
