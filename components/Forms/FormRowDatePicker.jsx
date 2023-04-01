@@ -14,6 +14,8 @@ const FormRowDatePicker = ({
   dateFormat,
    minDate,
 }) => {
+
+
   return (
     <div className={`form-row`}>
         <label className={`form-label`}>
@@ -24,6 +26,7 @@ const FormRowDatePicker = ({
             control={control}
             name={name}
             rules={rules}
+           
             render={({ field }) => (
             <DatePicker
                 placeholderText='Select date'
@@ -33,6 +36,8 @@ const FormRowDatePicker = ({
                 dateFormat={dateFormat || `dd/MM/yyyy h:mm aa`}
                 showTimeSelect
                 minDate={minDate}
+                withPortal
+                onFocus={(e) => e.target.readOnly = true}
             />
             )}
         />
@@ -40,5 +45,10 @@ const FormRowDatePicker = ({
     </div>
   )
 }
+
+
+const DatepickerInput = ({ ...props }) => (
+  <input type="text" {...props} readOnly />
+);
 
 export default FormRowDatePicker

@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Head>
         <title>
-          Hoppers Unlimited - Booking || Melbourne || Hoppers Catering
+          Hoppers Unlimited - Booking | Melbourne | Hoppers Catering
         </title>
         <meta
           name="description"
