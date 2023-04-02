@@ -213,9 +213,15 @@ button:disabled {
   background: var(--white);
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-3);
-  padding: 2rem 2.5rem;
+  padding: 2rem 0.25rem;
   margin: 3rem auto;
   transition: var(--transition);
+}
+
+@media screen and (min-width:769px) {
+  .form{
+      padding: 2rem 2.5rem;
+  }
 }
 
 .form:hover {
@@ -285,9 +291,7 @@ button:disabled {
 
 /* styling for react-datepicker */
 
-.react-datepicker{
-  border:1px solid var(--primary-500) !important;
-}
+
 
 .react-datepicker__triangle::after{
   border-bottom-color: var(--primary-300) !important;
@@ -328,3 +332,71 @@ button:disabled {
 .react-datepicker__time-list-item--selected {
   background-color: var(--primary-400) !important;
 }
+
+
+
+
+
+.react-datepicker {
+  border: 2px solid var(--primary-500) !important;
+
+  /* original value */
+  /* display:inline-block; */
+
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button) {
+  /* right:85px; (this is the default) */ 
+  right:2px !important; 
+}
+
+.react-datepicker__time-box{
+  /* original value */
+  /* width:85px */
+  width:100% !important;
+  height: 200px !important;
+    overflow-y: hidden !important;
+}
+
+.react-datepicker__time-container {
+  /* original value */
+  /* height: 200px !important;
+  overflow-y: hidden !important; */
+}
+
+.react-datepicker__time-list {
+  /* original value */
+  /* height: 379px; */
+  height: 200px !important;
+  /* overflow-y: hidden !important; */
+}
+
+@media screen and (min-width:475px){
+  /* bring the following to their original values */
+
+  .react-datepicker {
+      /* original value */
+      display:inline-block !important;
+    }
+
+    .react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button) {
+      /* original value */
+      right: 85px !important;
+    }
+
+    .react-datepicker__time-box {
+      /* original value */
+      width: 85px !important;
+      height: inherit !important;
+        overflow-y: inherit !important;
+    }
+
+     .react-datepicker__time-list {
+       /* original value */
+       height: 379px !important;
+     }
+
+}
+
