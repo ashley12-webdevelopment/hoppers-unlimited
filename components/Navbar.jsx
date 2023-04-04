@@ -9,8 +9,9 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <div className={styles["nav-center"]}>
         <Link href={`https://hoppersunlimited.com.au`}>
-        <Image src={logo} alt="Hoppers Unlimited"/>
+          <Image src={logo} alt="Hoppers Unlimited"/>
         </Link>
+        <Link href={`https://hoppersunlimited.com.au`} className={`btn ${styles["btn-backToMain"]}`}>back to main site</Link>
       </div>
     </nav>
   )

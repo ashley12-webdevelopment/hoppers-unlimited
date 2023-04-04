@@ -13,4 +13,19 @@
     max-width:var(--max-width);
     margin:0 auto;
     padding:0.5rem 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.btn-backToMain{
+    text-transform: capitalize;
+    border-radius:0.5rem;
+    font-size:1rem;
+    background-color:var(--black);
+}
+
+.btn-backToMain:hover{
+        background-color: var(--black);
+        box-shadow: none;
 }
