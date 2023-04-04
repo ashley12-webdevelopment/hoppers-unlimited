@@ -1,9 +1,13 @@
 import { config } from "../../lib/sanity/config";
 import axios from "axios";
 
-const sgMail = require("@sendgrid/mail");
+import aws from "aws-sdk";
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const ses = new aws.SES({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: "us-east-1",
+});
 
 export default async function handler(req, res) {
   const projectId = config.projectId;
@@ -74,7 +78,7 @@ export default async function handler(req, res) {
 
     const bookingId = data.results[0].id;
 
-    //send email using sendgrid
+    //send email using aws ses
     const message = `
         Name:${contactName}\r\n
         email: ${contactEmail}\r\n
@@ -90,15 +94,39 @@ export default async function handler(req, res) {
         }
         Kms To Detination: ${kmsToDestination}\r\n`;
 
-    const emailData = {
-      to: "tech@hoppersunlimited.com.au",
-      from: "bookings@hoppersunlimited.com.au",
-      subject: `New Booking - ${new Date()}`,
-      text: message,
-      html: message.replace(/\r\n/g, "<br>"),
+    const params = {
+      Destination: {
+        ToAddresses: ["bookings@hoppersunlimited.com.au"],
+      },
+      Message: {
+        Body: {
+          Text: {
+            Data: message,
+          },
+          Html: {
+            Data: getHtmlEmail(
+              contactName,
+              contactEmail,
+              contactNumber,
+              eventDate,
+              eventAddress,
+              eventCoordinates,
+              headCount,
+              kmsToDestination,
+              additionalComments
+            ),
+          },
+        },
+        Subject: {
+          Data: `New Booking - ${new Date()}`,
+        },
+      },
+      Source: "tech@hoppersunlimited.com.au",
     };
 
-    await sgMail.send(emailData);
+    const result = await ses.sendEmail(params).promise();
+
+    console.log("Email sent??", result);
 
     res
       .status(201)
@@ -107,4 +135,48 @@ export default async function handler(req, res) {
     console.log(err);
     res.status(500).json({ err_message: "booking submit error", err });
   }
+}
+
+function getHtmlEmail(
+  contactName,
+  contactEmail,
+  contactNumber,
+  eventDate,
+  eventAddress,
+  eventCoordinates,
+  headCount,
+  kmsToDestination,
+  additionalComments
+) {
+  let html = "";
+
+  // These are removed by gmail, so had to use inline styling
+  // html += `<style type="text/css">`;
+  // html += `   .container{width:100%;background-color:#bcccdc;display:flex;align-items:center;justify-content:center;padding:1rem;}`;
+  // html += `   .table{width:80%;border:2px solid black; font-size:0.75rem;background-color:#fff;}`;
+  // html += `   .table td{border:1px solid #d9e2ec;}`;
+  // html += `   .heading {text-transform: uppercase; font-weight: bold;padding: 1rem;}`;
+  // html += `</style>`;
+
+  html += `<div class='container' style="width:100%;background-color:#bcccdc;">`;
+  html += `<table class='table' style="width:750px;border:2px solid black; font-size:0.85rem;background-color:#fff;margin:1rem auto;">`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact name</td><td style="color: blue;">${contactName}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact email</td><td>${contactEmail}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact number</td><td>${contactNumber}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">event Date</td><td>${new Date(
+    eventDate
+  )}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">event Address</td><td>${eventAddress}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">event Coordinates</td><td>${JSON.stringify(
+    eventCoordinates
+  )}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">Head Count</td><td>${headCount}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">kms to destination</td><td>${kmsToDestination}</td></tr>`;
+  additionalComments
+    ? (html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">Additional Comments</td><td>${additionalComments}</td></tr>`)
+    : null;
+  html += `</table>`;
+  html += `</div>`;
+
+  return html;
 }

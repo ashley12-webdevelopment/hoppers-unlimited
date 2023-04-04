@@ -68,10 +68,12 @@ const FormRowAddress = ({
       setKmsToDestination(Kms);
       
     }
+  }
 
 
-   
-    
+  const handleError = (status,clearSuggestions)=>{
+    console.log("google maps api returned error with status:",status);
+    clearSuggestions();
   }
 
 
@@ -98,7 +100,9 @@ const FormRowAddress = ({
           componentRestrictions: {country: "aus"}
         });
     }
-  },[])
+  },[]);
+
+  
 
   if(searchOptions==null)return (<div>LOADING.....</div>);
   return (
@@ -110,7 +114,7 @@ const FormRowAddress = ({
         </label>
        
         <div>
-          <PlacesAutocomplete debounce={400} value={address} onChange={(value)=>{setAddress(value);setValue("eventAddress",value)}} onSelect={handleSelect} searchOptions={searchOptions}
+          <PlacesAutocomplete onError={handleError} debounce={400} value={address} onChange={(value)=>{setAddress(value);setValue("eventAddress",value)}} onSelect={handleSelect} searchOptions={searchOptions}
           >
             {({getInputProps, suggestions, getSuggestionItemProps, loading})=>(
               <div className={styles["parent-container"]}>
@@ -120,7 +124,7 @@ const FormRowAddress = ({
                 <input className={`form-input ${styles["address-input"]}`} {...getInputProps({placeholder})} autoComplete="none" />
                 <div className={styles["suggestions-container"]} >
                   {console.log(suggestions)}
-                  {loading?<div className={styles["loading"]}>loading...</div>:null}
+                  {/* {loading?<div className={styles["loading"]}>loading...</div>:null} */}
 
                   <GooglePlacesSuggestions suggestions={suggestions} getSuggestionItemProps={getSuggestionItemProps} styles={styles} />
 
