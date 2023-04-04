@@ -6,7 +6,7 @@ const GooglePlacesSuggestions = ({suggestions,getSuggestionItemProps,styles}) =>
 
     const filteredSuggestions = suggestions.reduce((acc,curr)=>{
         const {types} = curr;
-        const includeWords = ["street_address","premise","establishment"];
+        const includeWords = ["street_address","premise","subpremise","establishment"];
 
         includeWords.every((value)=>{
             if(types.includes(value)){
