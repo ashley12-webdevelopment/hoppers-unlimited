@@ -10,6 +10,7 @@ import {useState,useEffect} from 'react';
 
 import Loader from "../utils/Loader";
 import Modal from "../utils/Modal";
+import BusinessRules from "../BusinessRules"
 
 const initialValues = {contactName:"",contactNumber:"",contactEmail:"",headCount:25,eventAddress:"",eventCoordinates:undefined,kmsToDestination:undefined}
 
@@ -87,8 +88,9 @@ const BookingForm = () => {
             <h1 className={styles.title}>Hoppers Unlimited</h1>
             <h2 className={styles["sub-title"]}>Booking Form</h2>
             {/* <h3 className={styles["subheading-3"]}>for all bookings please fill and submit the form below. We will be in touch with you soon</h3> */}
-            <p className={styles["subheading-3"]}>Bookings for any party, event and functions please fill and submit the form below. We will be in touch with you soon</p>
-        
+            <p className={styles["subheading-3"]}>Bookings for any party, event and function please fill and submit the form below. We will be in touch with you soon.</p>
+      
+          <BusinessRules/>
         <form className={`form ${styles["event-form"]}`} onSubmit={handleSubmit(onFormSubmit)} autoComplete="off" noValidate>
           {/* SECTION 1 - Contact */}
           <div className={`${styles["group-section"]} ${styles["group-contact-section"]}`}>
@@ -142,7 +144,7 @@ const BookingForm = () => {
                       type="number"
                       additionalProperties={{min:25}}
                       labelText="head count"
-                      register={register("headCount",{required:{value:true,message:"head count required!!"},pattern:{value:/^\d+$/,message:"whole number without decimal places required!!"},min:{value:kmsToDestination>=50?35:25,message:`minimum head count is ${kmsToDestination>=50?"35":"25"}`}})}
+                      register={register("headCount",{required:{value:true,message:"head count required!!"},pattern:{value:/^\d+$/,message:"whole number without decimal places required!!"},min:{value:kmsToDestination>40?35:25,message:`minimum head count is ${kmsToDestination>40?"35":"25"}`}})}
                       // register={register("headCount",{required:{value:true,message:"head count required!!"},min:{value:25,message:`minimum head count is 25`},validate:{longDistant:(value)=>(getValues().kmsToDestination<50 && (value>=25 && value<35)) || "minimumhead count is 35"}})}
                       errors={errors}
                       required={true}

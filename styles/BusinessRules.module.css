@@ -1,0 +1,27 @@
+.container{
+    background-color:var(--black);
+    color:var(--white);
+    border-radius:0.75rem;
+    padding:0.45rem 0.75rem;
+    /* text-transform: capitalize; */
+}
+
+.container p {
+    margin: 0.5rem;
+}
+
+.container ul{
+    margin:0.5rem;
+}
+
+.main-heading{
+    text-transform: uppercase;
+    color:var(--primary-500);
+    font-weight:600;
+}
+.secondary-heading{
+    color:var(--primary-100);
+    font-weight:600;
+    margin-bottom:0.25rem !important;
+}
+
