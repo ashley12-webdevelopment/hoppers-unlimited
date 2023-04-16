@@ -33,6 +33,7 @@ const FormRowDatePicker = ({
                 onChange={(date) => field.onChange(date)}
                 selected={field.value}
                 className={`form-input`}
+                timeIntervals={15}
                 dateFormat={dateFormat || `dd/MM/yyyy h:mm aa`}
                 showTimeSelect
                 minDate={minDate}
