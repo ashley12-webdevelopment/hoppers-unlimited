@@ -158,8 +158,8 @@ function getHtmlEmail(
   // html += `   .heading {text-transform: uppercase; font-weight: bold;padding: 1rem;}`;
   // html += `</style>`;
 
-  html += `<div class='container' style="width:100%;background-color:#bcccdc;">`;
-  html += `<table class='table' style="width:750px;border:2px solid black; font-size:0.85rem;background-color:#fff;margin:0 auto;padding:1rem 0">`;
+  html += `<div class='container' style="width:100%;background-color:#bcccdc;padding:2rem 0;">`;
+  html += `<table class='table' style="width:750px;border:2px solid black; font-size:0.85rem;background-color:#fff;margin:0 auto;padding:1rem">`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact name</td><td style="color: blue;">${contactName}</td></tr>`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact email</td><td>${contactEmail}</td></tr>`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact number</td><td>${contactNumber}</td></tr>`;

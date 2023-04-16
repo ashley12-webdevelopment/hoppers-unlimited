@@ -28,9 +28,9 @@ const FormRowAddress = ({
 
   const handleSelect = async (value)=>{
     const results = await geocodeByAddress(value);
-    console.log(results);
+    // console.log(results);
     const latLng = await getLatLng(results[0]);
-    console.log(latLng);
+    // console.log(latLng);
     
     setCoordinate(latLng);
     setAddress(value); //so that we get the full SELECTED address not what they have typed in so far
@@ -38,9 +38,9 @@ const FormRowAddress = ({
     setValue("eventCoordinates",latLng);
     trigger("eventAddress");
 
-    console.log(latLng);
+    // console.log(latLng);
     const service = new google.maps.DirectionsService();
-    console.log(service);
+    // console.log(service);
 
     // Get the Kms to the destination
     const shopCoordinate = {lat:-38.0701,lng:145.25315}
@@ -57,12 +57,12 @@ const FormRowAddress = ({
     );
 
 
-    console.log(status,routes);
+    // console.log(status,routes);
 
     if(status === "OK" && routes){
       const route = routes[0];
       const Kms = (route.legs[0].distance.value/1000).toFixed(1);
-      console.log('Kms',Kms);
+      // console.log('Kms',Kms);
 
       setValue("kmsToDestination",Kms);
       setKmsToDestination(Kms);
@@ -114,7 +114,7 @@ const FormRowAddress = ({
         </label>
        
         <div>
-          <PlacesAutocomplete onError={handleError} debounce={400} value={address} onChange={(value)=>{setAddress(value);setValue("eventAddress",value)}} onSelect={handleSelect} searchOptions={searchOptions}
+          <PlacesAutocomplete onError={handleError} debounce={200} value={address} onChange={(value)=>{setAddress(value);setValue("eventAddress",value)}} onSelect={handleSelect} searchOptions={searchOptions}
           >
             {({getInputProps, suggestions, getSuggestionItemProps, loading})=>(
               <div className={styles["parent-container"]}>

@@ -85,8 +85,8 @@ const BookingForm = () => {
     <Modal showModal={bookingProcessComplete} closeModal={setBookingProcessComplete} msg={modalMessage}/>
     <section className={styles.section}>
         <div className={styles["section-center"]}>
-            <h1 className={styles.title}>Hoppers Unlimited</h1>
-            <h2 className={styles["sub-title"]}>Booking Form</h2>
+            <h1 className={styles.title}>Hoppers Unlimited - Booking Form</h1>
+            {/* <h2 className={styles["sub-title"]}>Booking Form</h2> */}
             {/* <h3 className={styles["subheading-3"]}>for all bookings please fill and submit the form below. We will be in touch with you soon</h3> */}
             <p className={styles["subheading-3"]}>Bookings for any party, event and function please fill and submit the form below. We will be in touch with you soon.</p>
       
@@ -113,12 +113,12 @@ const BookingForm = () => {
             <FormRow
               type="email"
               labelText="contact email"
-              register={register("contactEmail",{required:{value:true,message:"contact email required!!"}, pattern: {
+              register={register("contactEmail",{pattern: {
                               value:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                               message: "invalid email address",
                           }})}
               errors={errors}
-              required={true}
+              required={false}
             />
 
           {/* <div className="spacer"/> */}
@@ -154,7 +154,7 @@ const BookingForm = () => {
                     <FormRowAddress
                       type="text"
                       labelText="event address"
-                      register={register("eventAddress",{required:{value:true,message:"event address required!!"},validate:{coordinatesRequired:()=>(getValues().eventCoordinates!=="" && getValues().eventCoordinates!=undefined) || "valid address required!! Please select address from dropdown suggestions"}})}
+                      register={register("eventAddress",{required:{value:true,message:"event address required!!"},validate:{coordinatesRequired:()=>(getValues().eventCoordinates!=="" && getValues().eventCoordinates!=undefined) || "valid address required!! Please select an address from dropdown suggestions"}})}
                       address={address}
                       setAddress={setAddress}
                       errors={errors}

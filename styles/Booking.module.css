@@ -11,6 +11,7 @@
 .title{
   text-transform: uppercase;
   text-align: center;
+  font-size:1.5rem;
 }
 
 .sub-title{
@@ -81,6 +82,10 @@
   .group-section{
       padding: 1.5rem 1.25rem;
   }
+
+  .title{
+    font-size:2.375rem;
+  }
 }
 
 
@@ -116,5 +121,9 @@
     grid-template-columns: 1fr 1fr;
     gap: 0 2rem;
   }
+
+    .title {
+      font-size: 2.75rem;
+    }
 }
 
