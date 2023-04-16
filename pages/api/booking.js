@@ -35,7 +35,6 @@ export default async function handler(req, res) {
   if (
     !contactName ||
     !contactNumber ||
-    !contactEmail ||
     !eventDate ||
     !eventAddress ||
     !headCount ||
@@ -81,7 +80,7 @@ export default async function handler(req, res) {
     //send email using aws ses
     const message = `
         Name:${contactName}\r\n
-        email: ${contactEmail}\r\n
+        email: ${contactEmail ? contactEmail : "-"}\r\n
         phone: ${contactNumber}\r\n\r\n
         event Date: ${new Date(eventDate)}\r\n
         event Address: ${eventAddress}\r\n
@@ -161,7 +160,9 @@ function getHtmlEmail(
   html += `<div class='container' style="width:100%;background-color:#bcccdc;padding:2rem 0;">`;
   html += `<table class='table' style="width:750px;border:2px solid black; font-size:0.85rem;background-color:#fff;margin:0 auto;padding:1rem">`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact name</td><td style="color: blue;">${contactName}</td></tr>`;
-  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact email</td><td>${contactEmail}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact email</td><td>${
+    contactEmail ? contactEmail : "-"
+  }</td></tr>`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">contact number</td><td>${contactNumber}</td></tr>`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">event Date</td><td>${new Date(
     eventDate

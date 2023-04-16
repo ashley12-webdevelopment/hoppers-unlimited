@@ -19,7 +19,7 @@ export default {
       name: 'contactEmail',
       title: 'Contact Email',
       type: 'string',
-      validation: (Rule) => Rule.required().email(),
+      validation: (Rule) => Rule.email(),
     },
     {
       name: 'eventDate',
