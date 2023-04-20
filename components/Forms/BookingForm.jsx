@@ -88,7 +88,7 @@ const BookingForm = () => {
             <h1 className={styles.title}>Hoppers Unlimited - Booking Form</h1>
             {/* <h2 className={styles["sub-title"]}>Booking Form</h2> */}
             {/* <h3 className={styles["subheading-3"]}>for all bookings please fill and submit the form below. We will be in touch with you soon</h3> */}
-            <p className={styles["subheading-3"]}>Bookings for any party, event and function please fill and submit the form below. We will be in touch with you soon.</p>
+            <h2 className={styles["subheading-3"]}>We are accepting online bookings for Sri Lankan Hoppers catering for any party, event or function in Melbourne. Please fill and submit the form below and we will be in touch with you soon.</h2>
       
           <BusinessRules/>
         <form className={`form ${styles["event-form"]}`} onSubmit={handleSubmit(onFormSubmit)} autoComplete="off" noValidate>
