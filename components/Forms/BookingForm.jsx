@@ -144,7 +144,7 @@ const BookingForm = () => {
                       type="number"
                       additionalProperties={{min:25}}
                       labelText="head count"
-                      register={register("headCount",{required:{value:true,message:"head count required!!"},pattern:{value:/^\d+$/,message:"whole number without decimal places required!!"},min:{value:kmsToDestination>40?35:25,message:`minimum head count is ${kmsToDestination>40?"35":"25"}`}})}
+                      register={register("headCount",{required:{value:true,message:"head count required!!"},pattern:{value:/^\d+$/,message:"whole number without decimal places required!!"},min:{value:kmsToDestination>45?35:25,message:`minimum head count is ${kmsToDestination>45?"35":"25"}`}})}
                       // register={register("headCount",{required:{value:true,message:"head count required!!"},min:{value:25,message:`minimum head count is 25`},validate:{longDistant:(value)=>(getValues().kmsToDestination<50 && (value>=25 && value<35)) || "minimumhead count is 35"}})}
                       errors={errors}
                       required={true}
