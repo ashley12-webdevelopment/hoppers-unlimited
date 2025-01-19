@@ -6,10 +6,21 @@ const FormRow = ({
   errors,
   placeholder,
   additionalProperties,
-  customCss
+  customCss,
   // handleChange,
   // refHandler,
+  setValue,
+  setHeadCount
 }) => {
+
+  const handleHeadCount = (e)=>{
+    if(register.name=="headCount"){
+      const newHeadCount = e.target.value;
+      // console.log(e.target.value)
+      setValue("headCount",newHeadCount);
+      setHeadCount(newHeadCount);
+}
+  }
 
   // console.log('register',register);
   return (
@@ -28,6 +39,7 @@ const FormRow = ({
           placeholder={placeholder?placeholder:labelText}
           // onChange={handleChange}
           // ref={refHandler}
+          onChange={handleHeadCount}
         />
         {errors[register.name] && <span className={`form-row-error`}>{errors[register.name].message}</span>}
       </div>

@@ -12,6 +12,7 @@
     border-top:none;
     position:absolute;
     width:100%;
+    z-index: 1;
 }
 
 .loading{
@@ -26,6 +27,7 @@
     /* justify-content:center; */
     align-items:flex-start;
     gap:0.75rem;
+    
 }
 .suggestion-item--active{
     background:var(--primary-500);

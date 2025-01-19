@@ -1,3 +1,4 @@
+
 .section{
   padding:2rem 0;
 }
@@ -82,6 +83,43 @@
   display:grid;
 }
 
+/* full-width-row is to do with css on quote. to make this full row for mobile and desktop(unlike form fields that vary in length) */
+
+ .full-width-row {
+   grid-column-start: 1;
+   grid-column-end: 3;
+   margin: 0.125rem 0 0;
+ }
+
+ .full-width-row span {
+   font-weight: 600;
+ }
+
+ .full-width-row--info {
+   grid-column-start: 1;
+   grid-column-end: 3;
+   margin: 0;
+   margin-top: 0.5rem;
+   font-weight: 500;
+   color: var(--primary-800);
+ }
+
+ .quote-estimation{
+  color: var(--red-dark);
+  color:red;
+ }
+
+ 
+
+ .quote-condition {
+   color: var(--primary-900);
+   font-size: var(--small-text);
+ }
+
+/* quote section css end here */
+
+
+
 @media screen and (min-width:769px) {
   .group-section{
       padding: 1.5rem 1.25rem;
@@ -118,6 +156,10 @@
 
 .group-event-section::after{
     content:"event details";
+}
+
+.group-quote-section::after {
+  content: "estimated quote (based on your input)";
 }
 
 @media screen and (min-width:992px) {

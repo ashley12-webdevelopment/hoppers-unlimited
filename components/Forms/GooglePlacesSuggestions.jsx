@@ -21,7 +21,7 @@ const GooglePlacesSuggestions = ({suggestions,getSuggestionItemProps,styles}) =>
 
     },[]);
 
-    console.log('filtered',filteredSuggestions);
+    // console.log('filtered',filteredSuggestions);//19/01/2025
 
     
         // if(filteredSuggestions.length === 0){

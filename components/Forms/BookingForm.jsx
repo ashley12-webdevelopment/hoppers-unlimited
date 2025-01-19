@@ -23,19 +23,25 @@ const BookingForm = () => {
   //some useState values (tried to take these off but could not)
   const [address,setAddress] = useState("");
   const [kmsToDestination,setKmsToDestination] = useState(undefined);
+  // const [headCount,setHeadCount] = useState(getValues().headCount);
 
   const [formSubmitting,setFormSubmitting] = useState(false);
   const [bookingProcessComplete,setBookingProcessComplete] = useState(false);
   const [modalMessage,setModalMessage] = useState({})
 
+  const [headCount,setHeadCount]=useState(getValues("headCount"));
+
+    const [selectedAddress,setSelectedAddress] = useState("");
+
+
 
 
   const onFormSubmit = async (formData)=>{
-    console.log(formData);
+    // console.log(formData);
     setFormSubmitting(true);
     try{
       const data = await axios.post("/api/booking",formData);
-      console.log(`FORM SUUCESSFULLY SUBMITTED`,data);
+      // console.log(`FORM SUUCESSFULLY SUBMITTED`,data);
       setModalMessage({type:"success",title:"booking successfully sent",content:"We will call you soon"});
       reset();
       setAddress("");
@@ -149,6 +155,8 @@ const BookingForm = () => {
                       errors={errors}
                       required={true}
                       placeholder="number of people to serve"
+                      setValue={setValue}
+                      setHeadCount={setHeadCount}
                     />
 
                     <FormRowAddress
@@ -157,6 +165,7 @@ const BookingForm = () => {
                       register={register("eventAddress",{required:{value:true,message:"event address required!!"},validate:{coordinatesRequired:()=>(getValues().eventCoordinates!=="" && getValues().eventCoordinates!=undefined) || "valid address required!! Please select an address from dropdown suggestions"}})}
                       address={address}
                       setAddress={setAddress}
+                      setSelectedAddress={setSelectedAddress}
                       errors={errors}
                       required={true}
                       customCss={styles["full-width-field"]}
@@ -174,6 +183,23 @@ const BookingForm = () => {
                     />
             </div>
             
+          {/* SECTION 3 - Quote Details */}
+            <div className={`${styles["group-section"]} ${styles["group-quote-section"]}`}>
+
+{/* const initialValues = {contactName:"",contactNumber:"",contactEmail:"",headCount:25,eventAddress:"",eventCoordinates:undefined,kmsToDestination:undefined} */}
+
+              {/* {console.log(getValues().headCount)} */}
+              <p className={styles["full-width-row"]}><span>Head Count:</span>&nbsp;{headCount?headCount:"-"}</p>
+              <p className={styles["full-width-row"]}><span>Event Address:</span>&nbsp;{selectedAddress?selectedAddress:"-"}</p>
+              <p className={styles["full-width-row"]}><span>Estimated Kms to event:</span>&nbsp;{kmsToDestination!=undefined?`${kmsToDestination}km`:`-`}</p>
+             {/* <p>headCount(integer):{Number.isInteger(parseInt(headCount))?"true":"false"}</p> */}
+              {kmsToDestination!=undefined && ((kmsToDestination<=45 && headCount>=25) || (kmsToDestination >45 && headCount>=35))?<p className={`${styles["full-width-row--info"]}  ${styles["quote-estimation"]}`}><span>Estimated cost for the current booking:</span>&nbsp;AUD${(kmsToDestination>=45?12:10)*headCount}</p>:""}
+              { 
+                (kmsToDestination==undefined || !Number.isInteger(parseInt(headCount)))?<p className={styles["full-width-row--info"]}>**Please enter the <u>Event Address</u> and the <u>Head Count</u> to get the price estimation.</p>:
+                kmsToDestination<=45 && headCount<25?<p className={styles["full-width-row--info"]}>**Please enter a minimum head count of 25 or more to get price estimation</p>:
+                kmsToDestination >45 && headCount<35?<p className={styles["full-width-row--info"]}>**Please enter a minimum head count of 35 or more to get price estimation</p>:<p className={`${styles["full-width-row--info"]} ${styles["quote-condition"]}`}>(**Please note this a price estimation only. Final cost will be given when we contacting client)</p>
+              }
+            </div>
           
           <button type="submit" disabled={formSubmitting} className={`btn ${styles["btn-event"]}`}>{formSubmitting?<><Loader width={`1.25rem`} height={`1.25rem`}/><p>submitting ....</p></>:<p>submit booking</p>}</button>
           {/* testing purposes */}

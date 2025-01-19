@@ -9,6 +9,7 @@ const FormRowAddress = ({
   register,
   address,
   setAddress,
+  setSelectedAddress,
   labelText,
   required,
   errors,
@@ -34,6 +35,7 @@ const FormRowAddress = ({
     
     setCoordinate(latLng);
     setAddress(value); //so that we get the full SELECTED address not what they have typed in so far
+    setSelectedAddress(value);
     setValue("eventAddress",value);
     setValue("eventCoordinates",latLng);
     trigger("eventAddress");
@@ -123,7 +125,7 @@ const FormRowAddress = ({
                 <p>Kms to destination: {kmsToDestination?kmsToDestination:"-"}</p> */}
                 <input className={`form-input ${styles["address-input"]}`} {...getInputProps({placeholder})} autoComplete="none" />
                 <div className={styles["suggestions-container"]} >
-                  {console.log(suggestions)}
+                  {/* {console.log(suggestions)} */}
                   {/* {loading?<div className={styles["loading"]}>loading...</div>:null} */}
 
                   <GooglePlacesSuggestions suggestions={suggestions} getSuggestionItemProps={getSuggestionItemProps} styles={styles} />
