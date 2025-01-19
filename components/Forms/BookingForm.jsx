@@ -12,7 +12,7 @@ import Loader from "../utils/Loader";
 import Modal from "../utils/Modal";
 import BusinessRules from "../BusinessRules"
 
-const initialValues = {contactName:"",contactNumber:"",contactEmail:"",headCount:25,eventAddress:"",eventCoordinates:undefined,kmsToDestination:undefined}
+const initialValues = {contactName:"",contactNumber:"",contactEmail:"",headCount:25,eventAddress:"",eventCoordinates:undefined,kmsToDestination:undefined,estimatedCost:undefined}
 
 
 
@@ -30,8 +30,7 @@ const BookingForm = () => {
   const [modalMessage,setModalMessage] = useState({})
 
   const [headCount,setHeadCount]=useState(getValues("headCount"));
-
-    const [selectedAddress,setSelectedAddress] = useState("");
+  const [selectedAddress,setSelectedAddress] = useState("");
 
 
 
@@ -46,6 +45,9 @@ const BookingForm = () => {
       reset();
       setAddress("");
       setKmsToDestination(undefined);
+
+      setHeadCount(25);
+      setSelectedAddress(undefined);
     }catch(error){
       console.log(`error:`,error.message);
       setModalMessage({type:"error",title:"booking error",content:`Error sending message.Please contact site administration.${error.message}`})
@@ -150,7 +152,7 @@ const BookingForm = () => {
                       type="number"
                       additionalProperties={{min:25}}
                       labelText="head count"
-                      register={register("headCount",{required:{value:true,message:"head count required!!"},pattern:{value:/^\d+$/,message:"whole number without decimal places required!!"},min:{value:kmsToDestination>45?35:25,message:`minimum head count is ${kmsToDestination>45?"35":"25"}`}})}
+                      register={register("headCount",{required:{value:true,message:"head count required!!"},pattern:{value:/^\d+$/,message:"whole number without decimal places required!!"},min:{value:kmsToDestination>40?35:25,message:`minimum head count is ${kmsToDestination>40?"35":"25"}`}})}
                       // register={register("headCount",{required:{value:true,message:"head count required!!"},min:{value:25,message:`minimum head count is 25`},validate:{longDistant:(value)=>(getValues().kmsToDestination<50 && (value>=25 && value<35)) || "minimumhead count is 35"}})}
                       errors={errors}
                       required={true}
@@ -165,6 +167,7 @@ const BookingForm = () => {
                       register={register("eventAddress",{required:{value:true,message:"event address required!!"},validate:{coordinatesRequired:()=>(getValues().eventCoordinates!=="" && getValues().eventCoordinates!=undefined) || "valid address required!! Please select an address from dropdown suggestions"}})}
                       address={address}
                       setAddress={setAddress}
+                      selectedAddress={selectedAddress}
                       setSelectedAddress={setSelectedAddress}
                       errors={errors}
                       required={true}
@@ -193,11 +196,11 @@ const BookingForm = () => {
               <p className={styles["full-width-row"]}><span>Event Address:</span>&nbsp;{selectedAddress?selectedAddress:"-"}</p>
               <p className={styles["full-width-row"]}><span>Estimated Kms to event:</span>&nbsp;{kmsToDestination!=undefined?`${kmsToDestination}km`:`-`}</p>
              {/* <p>headCount(integer):{Number.isInteger(parseInt(headCount))?"true":"false"}</p> */}
-              {kmsToDestination!=undefined && ((kmsToDestination<=45 && headCount>=25) || (kmsToDestination >45 && headCount>=35))?<p className={`${styles["full-width-row--info"]}  ${styles["quote-estimation"]}`}><span>Estimated cost for the current booking:</span>&nbsp;AUD${(kmsToDestination>=45?12:10)*headCount}</p>:""}
+              {kmsToDestination!=undefined && ((kmsToDestination<=40 && headCount>=25) || (kmsToDestination >40 && headCount>=35))?<p className={`${styles["full-width-row--info"]}  ${styles["quote-estimation"]}`}><span>Estimated cost for the current booking:</span><span className={styles["price"]}>&nbsp;AUD${(kmsToDestination>40?12:10)*headCount}</span></p>:""}
               { 
                 (kmsToDestination==undefined || !Number.isInteger(parseInt(headCount)))?<p className={styles["full-width-row--info"]}>**Please enter the <u>Event Address</u> and the <u>Head Count</u> to get the price estimation.</p>:
-                kmsToDestination<=45 && headCount<25?<p className={styles["full-width-row--info"]}>**Please enter a minimum head count of 25 or more to get price estimation</p>:
-                kmsToDestination >45 && headCount<35?<p className={styles["full-width-row--info"]}>**Please enter a minimum head count of 35 or more to get price estimation</p>:<p className={`${styles["full-width-row--info"]} ${styles["quote-condition"]}`}>(**Please note this a price estimation only. Final cost will be given when we contacting client)</p>
+                kmsToDestination<=40 && headCount<25?<p className={styles["full-width-row--info"]}>**Please enter a minimum head count of 25 or more to get price estimation</p>:
+                kmsToDestination >40 && headCount<35?<p className={styles["full-width-row--info"]}>**Please enter a minimum head count of 35 or more to get price estimation</p>:<p className={`${styles["full-width-row--info"]} ${styles["quote-condition"]}`}>(**Please note this is a price estimation only. Final cost will be confirmed when we contact you)</p>
               }
             </div>
           

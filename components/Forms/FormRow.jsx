@@ -19,7 +19,7 @@ const FormRow = ({
       // console.log(e.target.value)
       setValue("headCount",newHeadCount);
       setHeadCount(newHeadCount);
-}
+    }
   }
 
   // console.log('register',register);

@@ -102,18 +102,22 @@
    margin-top: 0.5rem;
    font-weight: 500;
    color: var(--primary-800);
+  font-size: var(--small-text);
  }
 
  .quote-estimation{
   color: var(--red-dark);
   color:red;
  }
+ .quote-estimation .price{
+   color: var(--red-dark);
+ }
 
  
 
  .quote-condition {
    color: var(--primary-900);
-   font-size: var(--small-text);
+   font-size: var(--extra-small-text);
  }
 
 /* quote section css end here */
@@ -156,6 +160,10 @@
 
 .group-event-section::after{
     content:"event details";
+}
+
+.group-quote-section{
+    border: 1px solid var(--primary-200);
 }
 
 .group-quote-section::after {

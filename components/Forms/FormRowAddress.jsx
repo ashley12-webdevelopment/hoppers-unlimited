@@ -9,6 +9,7 @@ const FormRowAddress = ({
   register,
   address,
   setAddress,
+  selectedAddress,
   setSelectedAddress,
   labelText,
   required,
@@ -116,7 +117,9 @@ const FormRowAddress = ({
         </label>
        
         <div>
-          <PlacesAutocomplete onError={handleError} debounce={200} value={address} onChange={(value)=>{setAddress(value);setValue("eventAddress",value)}} onSelect={handleSelect} searchOptions={searchOptions}
+          {/* date:19/01/25 changed from this ----> onChange={(value)=>{setAddress(value);setValue("eventAddress",value)}} */}
+          {/* otherwise if client types and stops an address that half typed address is sent to business instead of the selected address */}
+          <PlacesAutocomplete onError={handleError} debounce={200} value={address} onChange={(value)=>{setAddress(value);}} onSelect={handleSelect} searchOptions={searchOptions}
           >
             {({getInputProps, suggestions, getSuggestionItemProps, loading})=>(
               <div className={styles["parent-container"]}>
@@ -139,6 +142,7 @@ const FormRowAddress = ({
             )}
 
           </PlacesAutocomplete>
+          {selectedAddress?<p className={styles["selected-address"]}><span>selected Address:&nbsp;</span>{selectedAddress}</p>:null}
         </div>
 
 

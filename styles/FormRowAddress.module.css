@@ -34,3 +34,12 @@
     color:var(--grey-900);
     /* font-weight:500; */
 }
+
+.selected-address{
+    font-size:var(--small-text);
+}
+
+.selected-address span{
+    color:var(--green-dark);
+    font-weight:500;
+}

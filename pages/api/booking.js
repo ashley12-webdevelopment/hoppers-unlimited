@@ -24,6 +24,7 @@ export default async function handler(req, res) {
     additionalComments,
     eventCoordinates,
     kmsToDestination,
+    estimatedCost
   } = req.body;
 
   console.log(eventCoordinates);
@@ -112,7 +113,8 @@ export default async function handler(req, res) {
               eventCoordinates,
               headCount,
               kmsToDestination,
-              additionalComments
+              additionalComments,
+              estimatedCost
             ),
           },
         },
@@ -145,7 +147,8 @@ function getHtmlEmail(
   eventCoordinates,
   headCount,
   kmsToDestination,
-  additionalComments
+  additionalComments,
+  estimatedCost
 ) {
   let html = "";
 
@@ -173,6 +176,7 @@ function getHtmlEmail(
   )}</td></tr>`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">Head Count</td><td>${headCount}</td></tr>`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">kms to destination</td><td>${kmsToDestination}</td></tr>`;
+  // html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">estimated cost (AUD$)</td><td>${estimatedCost}</td></tr>`;
   additionalComments
     ? (html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">Additional Comments</td><td>${additionalComments}</td></tr>`)
     : null;
