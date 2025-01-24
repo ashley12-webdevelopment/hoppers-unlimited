@@ -19,7 +19,7 @@ export default function Home() {
       </Head>
       <Script
         defer
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places&callback=Function.prototype`}
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&loading=async&libraries=places&callback=Function.prototype`}
         strategy="beforeInteractive"
         // strategy="afterInteractive"
       ></Script>

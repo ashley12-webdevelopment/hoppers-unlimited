@@ -32,11 +32,21 @@ const BookingForm = () => {
   const [headCount,setHeadCount]=useState(getValues("headCount"));
   const [selectedAddress,setSelectedAddress] = useState("");
 
+// date:24/01/2025
+// update the cost estimation field in the react-hook-form before submitting
+const beforeSubmit = ()=>{
+  let estCost = undefined;
+  if(kmsToDestination!=undefined && ((kmsToDestination<=40 && headCount>=25) || (kmsToDestination >40 && headCount>=35))){
+    estCost = (kmsToDestination>40?12:10)*headCount;
+  }
 
+  setValue("estimatedCost",estCost);
+  console.log(getValues().estimatedCost);
+}
 
 
   const onFormSubmit = async (formData)=>{
-    // console.log(formData);
+    console.log(formData);
     setFormSubmitting(true);
     try{
       const data = await axios.post("/api/booking",formData);
@@ -99,6 +109,7 @@ const BookingForm = () => {
             <h2 className={styles["subheading-3"]}>We are accepting online bookings for Sri Lankan Hoppers catering for any party, event or function in Melbourne. Please fill and submit the form below and we will be in touch with you soon.</h2>
       
           <BusinessRules/>
+          {/* onSubmit={handleSubmit(onFormSubmit)} */}
         <form className={`form ${styles["event-form"]}`} onSubmit={handleSubmit(onFormSubmit)} autoComplete="off" noValidate>
           {/* SECTION 1 - Contact */}
           <div className={`${styles["group-section"]} ${styles["group-contact-section"]}`}>
@@ -204,7 +215,7 @@ const BookingForm = () => {
               }
             </div>
           
-          <button type="submit" disabled={formSubmitting} className={`btn ${styles["btn-event"]}`}>{formSubmitting?<><Loader width={`1.25rem`} height={`1.25rem`}/><p>submitting ....</p></>:<p>submit booking</p>}</button>
+          <button type="submit" onClick={()=>beforeSubmit()} disabled={formSubmitting} className={`btn ${styles["btn-event"]}`}>{formSubmitting?<><Loader width={`1.25rem`} height={`1.25rem`}/><p>submitting ....</p></>:<p>submit booking</p>}</button>
           {/* testing purposes */}
           {/* <button type="button" onClick={()=>{setKmsToDestination(50);setValue("kmsToDestination",50);}}>Travel far</button>
           <button type="button" onClick={()=>{setKmsToDestination(20);setValue("kmsToDestination",20);}}>Travel local</button> */}

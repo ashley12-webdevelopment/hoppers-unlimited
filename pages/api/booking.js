@@ -176,7 +176,7 @@ function getHtmlEmail(
   )}</td></tr>`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">Head Count</td><td>${headCount}</td></tr>`;
   html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">kms to destination</td><td>${kmsToDestination}</td></tr>`;
-  // html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">estimated cost (AUD$)</td><td>${estimatedCost}</td></tr>`;
+  html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">estimated cost (AUD$)</td><td>${estimatedCost}</td></tr>`;
   additionalComments
     ? (html += `   <tr><td class='heading' style="text-transform: uppercase; font-weight: 600;padding: 0.5rem;">Additional Comments</td><td>${additionalComments}</td></tr>`)
     : null;
