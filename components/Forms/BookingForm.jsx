@@ -37,16 +37,16 @@ const BookingForm = () => {
 const beforeSubmit = ()=>{
   let estCost = undefined;
   if(kmsToDestination!=undefined && ((kmsToDestination<=40 && headCount>=25) || (kmsToDestination >40 && headCount>=35))){
-    estCost = (kmsToDestination>40?12:10)*headCount;
+    estCost = (kmsToDestination>40?13:11)*headCount;
   }
 
   setValue("estimatedCost",estCost);
-  console.log(getValues().estimatedCost);
+  // console.log(getValues().estimatedCost);
 }
 
 
   const onFormSubmit = async (formData)=>{
-    console.log(formData);
+    // console.log(formData);
     setFormSubmitting(true);
     try{
       const data = await axios.post("/api/booking",formData);
@@ -207,7 +207,7 @@ const beforeSubmit = ()=>{
               <p className={styles["full-width-row"]}><span>Event Address:</span>&nbsp;{selectedAddress?selectedAddress:"-"}</p>
               <p className={styles["full-width-row"]}><span>Estimated Kms to event:</span>&nbsp;{kmsToDestination!=undefined?`${kmsToDestination}km`:`-`}</p>
              {/* <p>headCount(integer):{Number.isInteger(parseInt(headCount))?"true":"false"}</p> */}
-              {kmsToDestination!=undefined && ((kmsToDestination<=40 && headCount>=25) || (kmsToDestination >40 && headCount>=35))?<p className={`${styles["full-width-row--info"]}  ${styles["quote-estimation"]}`}><span>Estimated cost for the current booking:</span><span className={styles["price"]}>&nbsp;AUD${(kmsToDestination>40?12:10)*headCount}</span></p>:""}
+              {kmsToDestination!=undefined && ((kmsToDestination<=40 && headCount>=25) || (kmsToDestination >40 && headCount>=35))?<p className={`${styles["full-width-row--info"]}  ${styles["quote-estimation"]}`}><span>Estimated cost for the current booking:</span><span className={styles["price"]}>&nbsp;AUD${(kmsToDestination>40?13:11)*headCount}</span></p>:""}
               { 
                 (kmsToDestination==undefined || !Number.isInteger(parseInt(headCount)))?<p className={styles["full-width-row--info"]}>**Please enter the <u>Event Address</u> and the <u>Head Count</u> to get the price estimation.</p>:
                 kmsToDestination<=40 && headCount<25?<p className={styles["full-width-row--info"]}>**Please enter a minimum head count of 25 or more to get price estimation</p>:
